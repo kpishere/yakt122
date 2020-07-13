@@ -53,7 +53,8 @@ void clkRising() {
 void sendUSBKey(usbKey key) {
   KeyReport report = {(uint8_t)key.mod,0,(uint8_t)key.key};
 #ifdef DEBUG
-  Serial.print("usb "); Serial.println(key.key, HEX);    
+  Serial.print(" usb "); Serial.print(report.keys[0], HEX);    
+  Serial.print(" mod "); Serial.println(report.modifiers, HEX);    
 #endif
   Keyboard.sendReport(&report);
 }
@@ -61,7 +62,8 @@ void procTaskPS2KeyUp()
 {
   KeyReport report = {(uint8_t)usbModFromPS2State(ps2kbState),0,(uint8_t)Reserved0};
 #ifdef DEBUG
-  Serial.println("usb 00");
+  Serial.print(" usb "); Serial.print(report.keys[0], HEX);    
+  Serial.print(" mod "); Serial.println(report.modifiers, HEX);    
 #endif
   Keyboard.sendReport(&report); 
 }
