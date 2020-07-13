@@ -2,6 +2,8 @@
 #include "usb_hid_112.hpp"
 #include "keyboard_terminal_122.hpp"
 #include "Keyboard.h"
+
+#define DEBUG
  
 // For ProMicro - Atmega32U4
 const int numbits = 11; // Bits in each PS2 Keyboard event
@@ -50,13 +52,17 @@ void clkRising() {
 //
 void sendUSBKey(usbKey key) {
   KeyReport report = {(uint8_t)key.mod,0,(uint8_t)key.key};
+#ifdef DEBUG
   Serial.print("usb "); Serial.println(key.key, HEX);    
+#endif
   Keyboard.sendReport(&report);
 }
 void procTaskPS2KeyUp()
 {
   KeyReport report = {(uint8_t)usbModFromPS2State(ps2kbState),0,(uint8_t)Reserved0};
+#ifdef DEBUG
   Serial.println("usb 00");
+#endif
   Keyboard.sendReport(&report); 
 }
 
@@ -72,13 +78,17 @@ void setup_ps2(){
 
 void setup() {
   while (! Serial);
+#ifdef DEBUG
   Serial.begin(115200);
-  
+#endif
+  delay(500);
+  Keyboard.begin();
+
   setup_ps2();
   
-  Keyboard.begin();
-  delay(1000);
+#ifdef DEBUG
   Serial.println("started");
+#endif
 }
 
 //
@@ -89,13 +99,14 @@ void loop() {
   if(incoming_ready) {
     unsigned char valc = (unsigned char)incoming;
     
+#ifdef DEBUG
     Serial.print("ps2 "); Serial.println(incoming, HEX);    
+#endif
 
     if(nextKeyIsOut) {
       outKeyState(valc);
     } else {
       keyHandler keyFound = keyHandler_map_find(valc);
-      Serial.print(" ptr "); Serial.println( (unsigned long)keyFound, HEX);
       if(keyFound != NULL) {
         keyFound( ((ps2key){valc, ps2kbState}) );
         procTaskPS2KeyUp();
