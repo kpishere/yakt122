@@ -44,10 +44,9 @@ typedef enum ps2kbStatesE {
 , {{0x10,0}, {0,F14}} \
 , {{term122_resetQuit,0}, {0,ModLeftCTRL}} /*resetQuit*/ \
 , {{term122_shiftL,0}, {0,ModLeftShift}} /*shiftL*/ \
-, {{0x13,0}, {0,KP_LessThan}} /* < > */ \
-, {{0x13, (int)shiftL}, {0,KP_GreaterThan}} /* < > */ \
-, {{0x13, (int)shiftR}, {0,KP_GreaterThan}} /* < > */ \
-, {{0x13, (int)shiftLck}, {0,KP_GreaterThan}} /* < > */ \
+, {{0x13,0}, {leftShift,Comma_Less}} /* < > */ \
+, {{0x13, (int)shiftL}, {leftShift,Period_Greater}} /* < > */ \
+, {{0x13, (int)shiftR}, {rightShift,Period_Greater}} /* < > */ \
 , {{term122_shiftLck,0}, {0,CapsLock}} /*shiftLck*/ \
 , {{0x15,0}, {0,Q}} \
 , {{0x16,0}, {0,One_Bang}} \
@@ -93,7 +92,10 @@ typedef enum ps2kbStatesE {
 , {{0x3E,0}, {0,Eight_Asrisk}} \
 , {{0x3F,0}, {0,F8}} \
 , {{0x40,0}, {0,F20}} \
-, {{0x41,0}, {0,KP_Comma}} \
+, {{0x41,0}, {0,Comma_Less}} \
+, {{0x41,(int)shiftL}, {0,Comma_Less}} \
+, {{0x41,(int)shiftR}, {0,Comma_Less}} \
+, {{0x41,(int)shiftLck}, {0,Comma_Less}} \
 , {{0x42,0}, {0,K}} \
 , {{0x43,0}, {0,I}} \
 , {{0x44,0}, {0,O}} \
