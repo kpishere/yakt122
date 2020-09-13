@@ -19,29 +19,45 @@ typedef enum ps2kbStatesE {
 
 // Terminal 122 Key Codes + key-state (P/S2 Set 3) to USB + modifier
 #define PS2Scancode3ToUSB112 \
-  {{0x00,0}, {0,Reserved0}} /* Used for key up event */ \
-, {{0x01,0}, {0,Application}} \
-, {{0x01,0}, {0,Application}} /*Setup */ \
-, {{0x03,0}, {0,PrintScreen}} /*Print*/ \
+  {{0x00,0}, {0,Reserved0}} /* Used for key up event - Reserved (no event indicated) */ \
+/* PC-AT, UNIX , 101, 104 */ \
+, {{0x01,0}, {0,Application}} /* Keyboard ErrorRollOver9 */ \
+/* Mac, UNIX */ \
 , {{0x04,0}, {0,Power}} /*Blank below SysReq, above Print*/ \
+/* Mac */ \
+, {{0x10,0}, {0,F14}} \
+, {{0x18,0}, {0,F15}} \
+/* Unix */ \
+, {{0x6E,0}, {0,Copy}} \
+, {{0x6F,0}, {0,Undo}} /*Blank Jump*/ \
+, {{0x6F, (int)altR}, {0,Find}} \
+, {{0x6F, (int)altL}, {0,Find}} \
+, {{0x83,0}, {0,Stop}} \
+/* Terminal */ \
 , {{0x05,0}, {0,SysReq_Attn}} \
-, {{0x06,0}, {0,Escape}} /*Blank Clear - to right of SysReq*/\
 , {{0x06, (int)altL}, {0,Clear}} /* Clear - to right of SysReq*/ \
 , {{0x06, (int)altR}, {0,Clear}} /* Clear - to right of SysReq*/ \
-, {{0x07,0}, {0,F1}} \
-, {{0x08,0}, {0,F13}} \
 , {{0x09,0}, {0,Mute}} /*Record Pause*/ \
-, {{0x09, (int)altL}, {0,Pause}} /*Record Pause*/ \
-, {{0x09, (int)altR}, {0,Pause}} /*Record Pause*/ \
 , {{0x0A,0}, {0,Execute}} /*Play test*/ \
 , {{0x0B,0}, {0,Help}} /* Help hex*/ \
 , {{0x0B, (int)altL}, {0,KP_Hex}} /* Help hex*/ \
 , {{0x0B, (int)altR}, {0,KP_Hex}} /* Help hex*/ \
 , {{0x0C,0}, {0,Clear_Again}} /*ErrImp*/ \
+, {{0x54,0}, {0,CurrencySubUnit}} /* ! c */ \
+, {{0x54, (int)shiftL}, {0,KP_Bang}} /* ! c */ \
+, {{0x54, (int)shiftR}, {0,KP_Bang}} /* ! c */ \
+, {{0x54, (int)shiftLck}, {0,KP_Bang}} /* ! c */ \
+, {{0x64,0}, {0,ReturnAlt}} \
+/* PC-AT, Mac, UNIX , 101, 104 */ \
+, {{0x03,0}, {0,PrintScreen}} /*Print*/ \
+, {{0x06,0}, {0,Escape}} /*Blank Clear - to right of SysReq*/\
+, {{0x07,0}, {0,F1}} \
+, {{0x08,0}, {0,F13}} \
+, {{0x09, (int)altL}, {0,Pause}} /*Record Pause*/ \
+, {{0x09, (int)altR}, {0,Pause}} /*Record Pause*/ \
 , {{0x0D,0}, {0,Tab}} \
 , {{0x0E,0}, {0,Acent_Tilde}} /* ' _ */ \
 , {{0x0F,0}, {0,F2}} \
-, {{0x10,0}, {0,F14}} \
 , {{term122_resetQuit,0}, {0,ModLeftCTRL}} /*resetQuit*/ \
 , {{term122_shiftL,0}, {0,ModLeftShift}} /*shiftL*/ \
 , {{0x13,0}, {leftShift,Comma_Less}} /* < > */ \
@@ -51,7 +67,6 @@ typedef enum ps2kbStatesE {
 , {{0x15,0}, {0,Q}} \
 , {{0x16,0}, {0,One_Bang}} \
 , {{0x17,0}, {0,F3}} \
-, {{0x18,0}, {0,F15}} \
 , {{term122_altL,0}, {0,ModLeftAlt}} /*altL*/ \
 , {{0x1A,0}, {0,Z}} \
 , {{0x1B,0}, {0,S}} \
@@ -59,7 +74,6 @@ typedef enum ps2kbStatesE {
 , {{0x1D,0}, {0,W}} \
 , {{0x1E,0}, {0,Two_At}} \
 , {{0x1F,0}, {0,F4}} \
-, {{0x20,0}, {0,F16}} \
 , {{0x21,0}, {0,C}} \
 , {{0x22,0}, {0,X}} \
 , {{0x23,0}, {0,D}} \
@@ -67,7 +81,6 @@ typedef enum ps2kbStatesE {
 , {{0x25,0}, {0,Four_Dollar}} \
 , {{0x26,0}, {0,Three_Hash}} \
 , {{0x27,0}, {0,F5}} \
-, {{0x28,0}, {0,F17}} \
 , {{0x29,0}, {0,Spacebar}} \
 , {{0x2A,0}, {0,V}} \
 , {{0x2B,0}, {0,F}} \
@@ -75,7 +88,6 @@ typedef enum ps2kbStatesE {
 , {{0x2D,0}, {0,R}} \
 , {{0x2E,0}, {0,Five_Perc}} \
 , {{0x2F,0}, {0,F6}} \
-, {{0x30,0}, {0,F18}} \
 , {{0x31,0}, {0,N}} \
 , {{0x32,0}, {0,B}} \
 , {{0x33,0}, {0,H}} \
@@ -83,7 +95,6 @@ typedef enum ps2kbStatesE {
 , {{0x35,0}, {0,Y}} \
 , {{0x36,0}, {0,Six_Caret}} \
 , {{0x37,0}, {0,F7}} \
-, {{0x38,0}, {0,F19}} \
 , {{term122_altR,0}, {0,ModRightAlt}} /* altR */ \
 , {{0x3A,0}, {0,M}} \
 , {{0x3B,0}, {0,J}} \
@@ -91,7 +102,6 @@ typedef enum ps2kbStatesE {
 , {{0x3D,0}, {0,Seven_And}} \
 , {{0x3E,0}, {0,Eight_Asrisk}} \
 , {{0x3F,0}, {0,F8}} \
-, {{0x40,0}, {0,F20}} \
 , {{0x41,0}, {0,Comma_Less}} \
 , {{0x41,(int)shiftL}, {0,Comma_Less}} \
 , {{0x41,(int)shiftR}, {0,Comma_Less}} \
@@ -102,7 +112,6 @@ typedef enum ps2kbStatesE {
 , {{0x45,0}, {0,Zero_CloseParen}} \
 , {{0x46,0}, {0,Nine_OpenParen}} \
 , {{0x47,0}, {0,F9}} \
-, {{0x48,0}, {0,F21}} \
 , {{0x49,0}, {0,Period_Greater}} \
 , {{0x49, (int)shiftL}, {0,Period_Greater}} /* < > */ \
 , {{0x49, (int)shiftR}, {0,Period_Greater}} /* < > */ \
@@ -113,30 +122,22 @@ typedef enum ps2kbStatesE {
 , {{0x4D,0}, {0,P}} \
 , {{0x4E,0}, {0,Minus_Underscore}} \
 , {{0x4F,0}, {0,F10}} \
-, {{0x50,0}, {0,F22}} \
 , {{0x52,0}, {0,QuoteSingle_Double}} \
 , {{0x53,0}, {leftShift,BraceOpenSq_Curl}} \
 , {{0x53, (int)shiftL}, {leftShift, BraceCloseSq_Curl}} /*{ }*/ \
 , {{0x53, (int)shiftR}, {leftShift, BraceCloseSq_Curl}} /*{ }*/ \
 , {{0x53, (int)shiftLck}, {leftShift, BraceCloseSq_Curl}} /*{ }*/ \
-, {{0x54,0}, {0,CurrencySubUnit}} /* ! c */ \
-, {{0x54, (int)shiftL}, {0,KP_Bang}} /* ! c */ \
-, {{0x54, (int)shiftR}, {0,KP_Bang}} /* ! c */ \
-, {{0x54, (int)shiftLck}, {0,KP_Bang}} /* ! c */ \
 , {{0x55,0}, {0,Equal_Plus}} \
 , {{0x56,0}, {0,F11}} \
-, {{0x57,0}, {0,F23}} \
 , {{term122_ctrlEnter,0}, {0,ModRightCTRL}} /*ctrlEnter*/ \
 , {{term122_shiftR,0}, {0,ModRightShift}} /* shiftR */ \
 , {{0x5A,0}, {0,Return}} /* Field Exit */ \
 , {{0x5B,0}, {0,BackSlash_Pipe}} \
 , {{0x5E,0}, {0,F12}} \
-, {{0x5F,0}, {0,F24}} \
 , {{0x60,0}, {0,DownArrow}} \
 , {{0x61,0}, {0,LeftArrow}} \
 , {{0x62,0}, {0,Home}} \
 , {{0x63,0}, {0,UpArrow}} \
-, {{0x64,0}, {0,ReturnAlt}} \
 , {{0x65,0}, {0,Paste}} /*Insert*/ \
 , {{0x66,0}, {0,Delete_Backspace}} \
 , {{0x67,0}, {leftShift, Tab }} \
@@ -145,10 +146,6 @@ typedef enum ps2kbStatesE {
 , {{0x6B,0}, {0,KP_4_Left}} \
 , {{0x6C,0}, {0,KP_7_Home}} \
 , {{0x6D,0}, {0,DeleteFwd}} \
-, {{0x6E,0}, {0,Copy}} \
-, {{0x6F,0}, {0,Undo}} /*Blank Jump*/ \
-, {{0x6F, (int)altR}, {0,Find}} \
-, {{0x6F, (int)altL}, {0,Find}} \
 , {{0x70,0}, {0,KP_0_Ins}} \
 , {{0x71,0}, {0,KP_Dot_Del}} \
 , {{0x72,0}, {0,KP_2_Down}} \
@@ -163,8 +160,16 @@ typedef enum ps2kbStatesE {
 , {{0x7C,0}, {0,KP_Minus}} \
 , {{0x7D,0}, {0,KP_9_PgUp}} \
 , {{0x7E,0}, {0,KP_SlashFwd}} \
-, {{0x83,0}, {0,Stop}} \
-, {{0x84,0}, {0,KP_Mult}}
+, {{0x84,0}, {0,KP_Mult}} \
+, {{0x20,0}, {0,F16}} \
+, {{0x28,0}, {0,F17}} \
+, {{0x30,0}, {0,F18}} \
+, {{0x38,0}, {0,F19}} \
+, {{0x40,0}, {0,F20}} \
+, {{0x48,0}, {0,F21}} \
+, {{0x50,0}, {0,F22}} \
+, {{0x57,0}, {0,F23}} \
+, {{0x5F,0}, {0,F24}}
 
 // With primary keycode press, call handler
 #define PS2KeyEvent2Handler \

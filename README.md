@@ -17,8 +17,8 @@ Enjoy!
 
 # For MacOS
 
-Sadly, the Apple driver AppleHIDKeyboard.kext only supports 10x type keyboards.  That means that all the other keys on the Terminal 122 keyboard can't be used with this driver on MacOS.
+For High Sierra and later, the keyboard drivers were updated.  Here is link of how to customize further.  
 
-There are mapping tools like Ukelele, sure but they work after the keys presented from the driver so .. it does not help in this case.
+[Remapping Keys in macOS 10.12 Sierra](https://developer.apple.com/library/archive/technotes/tn2450/_index.html)
 
-Must hack/replace this driver to use the Terminal 122 keyboard and have it feel 'native'.
+[Apple Keyboard History](https://en.wikipedia.org/wiki/Apple_Keyboard)
