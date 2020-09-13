@@ -33,7 +33,7 @@ int usbModFromPS2State(int ps2State) {
   // If LHS and RHS state and modifier conditions are blank, then pass-thru value
   if( ps2State & shiftLck ) mod |= leftShift;
   if( ps2State & shiftL ) mod |= leftShift;
-  if( ps2State & resetQuit ) mod |= leftCtrl;
+  if( ps2State & resetQuit ) mod |= leftGUI;
   if( ps2State & altL ) mod |= leftAlt;
   if( ps2State & shiftR ) mod |= rightShift;
   if( ps2State & ctrlEnter ) mod |= rightCtrl;

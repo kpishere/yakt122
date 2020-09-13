@@ -4,12 +4,12 @@
 #include "usb_hid_112.hpp"
 
 // State / mod key codes for Model M 122 key scancode 3 keyboard
-#define term122_resetQuit 0x11
+#define term122_resetQuit 0x11 /* left GUI usb */
 #define term122_shiftL 0x12
 #define term122_shiftLck 0x14
 #define term122_altL 0x19
 #define term122_altR 0x39
-#define term122_ctrlEnter 0x58
+#define term122_ctrlEnter 0x58 /* ctrl USB */
 #define term122_shiftR 0x59
 
 // States and mapping
@@ -23,7 +23,7 @@ typedef enum ps2kbStatesE {
 /* PC-AT, UNIX , 101, 104 */ \
 , {{0x01,0}, {0,Application}} /* Keyboard ErrorRollOver9 */ \
 /* Mac, UNIX */ \
-, {{0x04,0}, {0,Power}} /*Blank below SysReq, above Print*/ \
+, {{0x04,0}, {rightCtrl,Power}} /*Blank below SysReq, above Print*/ \
 /* Mac */ \
 , {{0x10,0}, {0,F14}} \
 , {{0x18,0}, {0,F15}} \
@@ -43,10 +43,10 @@ typedef enum ps2kbStatesE {
 , {{0x0B, (int)altL}, {0,KP_Hex}} /* Help hex*/ \
 , {{0x0B, (int)altR}, {0,KP_Hex}} /* Help hex*/ \
 , {{0x0C,0}, {0,Clear_Again}} /*ErrImp*/ \
-, {{0x54,0}, {0,CurrencySubUnit}} /* ! c */ \
-, {{0x54, (int)shiftL}, {0,KP_Bang}} /* ! c */ \
-, {{0x54, (int)shiftR}, {0,KP_Bang}} /* ! c */ \
-, {{0x54, (int)shiftLck}, {0,KP_Bang}} /* ! c */ \
+, {{0x54, (int)shiftL}, {leftShift,One_Bang}} /* ! c */ \
+, {{0x54, (int)shiftR}, {rightShift,One_Bang}} /* ! c */ \
+, {{0x54, (int)shiftLck}, {leftShift,One_Bang}} /* ! c */ \
+, {{0x54,0}, {leftAlt,Four_Dollar}} /* ! c */ \
 , {{0x64,0}, {0,ReturnAlt}} \
 /* PC-AT, Mac, UNIX , 101, 104 */ \
 , {{0x03,0}, {0,PrintScreen}} /*Print*/ \
@@ -58,7 +58,7 @@ typedef enum ps2kbStatesE {
 , {{0x0D,0}, {0,Tab}} \
 , {{0x0E,0}, {0,Acent_Tilde}} /* ' _ */ \
 , {{0x0F,0}, {0,F2}} \
-, {{term122_resetQuit,0}, {0,ModLeftCTRL}} /*resetQuit*/ \
+, {{term122_resetQuit,0}, {0,ModLeftGUI}} /*resetQuit*/ \
 , {{term122_shiftL,0}, {0,ModLeftShift}} /*shiftL*/ \
 , {{0x13,0}, {leftShift,Comma_Less}} /* < > */ \
 , {{0x13, (int)shiftL}, {leftShift,Period_Greater}} /* < > */ \
@@ -171,6 +171,7 @@ typedef enum ps2kbStatesE {
 , {{0x57,0}, {0,F23}} \
 , {{0x5F,0}, {0,F24}}
 
+
 // With primary keycode press, call handler
 #define PS2KeyEvent2Handler \
   {0x00, keyMap} \
@@ -198,6 +199,7 @@ typedef enum ps2kbStatesE {
 , {0x17, keyMap} \
 , {0x18, keyMap} \
 , {term122_altL, inKeyState} \
+, {term122_resetQuit, inKeyState} \
 , {0x1A, keyMap} \
 , {0x1B, keyMap} \
 , {0x1C, keyMap} \
