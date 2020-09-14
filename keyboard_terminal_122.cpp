@@ -12,6 +12,7 @@ const usbKey usbKeyUndefined = {0, Reserved0};
 // Globals
 int ps2kbState;
 bool nextKeyIsOut = false;
+bool shftLockOn = false;
 
 typedef struct {
   unsigned char key;
@@ -53,6 +54,7 @@ void inKeyState(ps2key key) {
       break;
     case term122_shiftLck:
       ps2kbState |= shiftLck;
+      shftLockOn = (shftLockOn ? false : true); // toggle shift lock
       break;
     case term122_altL:
       ps2kbState |= altL;
@@ -120,7 +122,9 @@ void outKeyState(unsigned char key) {
       break;
     case (term122_shiftLck):
     case (term122_shiftLck | 0xF0): // 0xF4
-      ps2kbState &= ~shiftLck;
+      if(!shftLockOn) { // status is toggled on downstroke only
+        ps2kbState &= ~shiftLck;
+      }
       break;
     case (term122_ctrlEnter):
     case (term122_ctrlEnter | 0xF0): // 0xF8

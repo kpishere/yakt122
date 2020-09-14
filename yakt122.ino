@@ -3,7 +3,7 @@
 #include "keyboard_terminal_122.hpp"
 #include "Keyboard.h"
 
-#define DEBUG  
+//#define DEBUG  
   
 // For ProMicro - Atmega32U4
 const int numbits = 11; // Bits in each PS2 Keyboard event
