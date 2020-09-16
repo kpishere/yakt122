@@ -3,13 +3,13 @@
 #include "keyboard_terminal_122.hpp"
 #include "Keyboard.h"
 
-//#define DEBUG  
-  
+//#define DEBUG
+
 // For ProMicro - Atmega32U4
 const int numbits = 11; // Bits in each PS2 Keyboard event
 const int clockPin = 3;
-const int dataPin = 2; 
-const int debugPin = 4; 
+const int dataPin = 2;
+const int debugPin = 4;
 
 //
 // Incoming PS/2 signals
@@ -53,8 +53,8 @@ void clkRising() {
 void sendUSBKey(usbKey key) {
   KeyReport report = {(uint8_t)key.mod,0,(uint8_t)key.key};
 #ifdef DEBUG
-  Serial.print(" usb "); Serial.print(report.keys[0], HEX);    
-  Serial.print(" mod "); Serial.println(report.modifiers, HEX);    
+  Serial.print(" usb "); Serial.print(report.keys[0], HEX);
+  Serial.print(" mod "); Serial.println(report.modifiers, HEX);
 #endif
   Keyboard.sendReport(&report);
 }
@@ -62,10 +62,10 @@ void procTaskPS2KeyUp()
 {
   KeyReport report = {(uint8_t)usbModFromPS2State(ps2kbState),0,(uint8_t)Reserved0};
 #ifdef DEBUG
-  Serial.print(" usb "); Serial.print(report.keys[0], HEX);    
-  Serial.print(" mod "); Serial.println(report.modifiers, HEX);    
+  Serial.print(" usb "); Serial.print(report.keys[0], HEX);
+  Serial.print(" mod "); Serial.println(report.modifiers, HEX);
 #endif
-  Keyboard.sendReport(&report); 
+  Keyboard.sendReport(&report);
 }
 
 //
@@ -79,15 +79,17 @@ void setup_ps2(){
 }
 
 void setup() {
-  while (! Serial);
 #ifdef DEBUG
+  while (!Serial);
   Serial.begin(115200);
 #endif
-  delay(500);
   Keyboard.begin();
+  delay(500);
+
+  Keyboard.releaseAll();
 
   setup_ps2();
-  
+
 #ifdef DEBUG
   Serial.println("started");
 #endif
@@ -100,9 +102,9 @@ void loop() {
   // put your main code here, to run repeatedly:
   if(incoming_ready) {
     unsigned char valc = (unsigned char)incoming;
-    
+
 #ifdef DEBUG
-    Serial.print("ps2 "); Serial.println(incoming, HEX);    
+    Serial.print("ps2 "); Serial.println(incoming, HEX);
 #endif
 
     if(nextKeyIsOut) {
@@ -114,7 +116,7 @@ void loop() {
         procTaskPS2KeyUp();
       }
     }
-        
+
     incoming_ready = false;
   }
 }
