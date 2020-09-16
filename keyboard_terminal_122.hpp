@@ -139,6 +139,9 @@ typedef enum ps2kbStatesE {
 , {{0x62,0}, {0,Home}} \
 , {{0x63,0}, {0,UpArrow}} \
 , {{0x65,0}, {0,Paste}} /*Insert*/ \
+, {{0x66,term122_shiftL}, {0,Delete_Backspace}} \
+, {{0x66,term122_shiftLck}, {0,Delete_Backspace}} \
+, {{0x66,term122_shiftR}, {0,Delete_Backspace}} \
 , {{0x66,0}, {0,Delete_Backspace}} \
 , {{0x67,0}, {leftShift, Tab }} \
 , {{0x69,0}, {0,KP_1_End}} \
