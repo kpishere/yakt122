@@ -16,7 +16,7 @@ Enjoy!
 
 # For MacOS
 
-For High Sierra and later, the keyboard drivers were updated.  Here is link of how to customize further.  
+For High Sierra and later, the keyboard drivers were updated.  Here is link of how to customize further. With it, you could probably activate F-keys F20 through F24.  As it is though, you can map upto F-19.  
 
 [Remapping Keys in macOS 10.12 Sierra](https://developer.apple.com/library/archive/technotes/tn2450/_index.html)
 
