@@ -24,7 +24,7 @@ For High Sierra and later, the keyboard drivers were updated.  Here is link of h
 
 # Example hardware implementation 
 
-This Pro Micro device (Leanardo compatible) is a great one to use.  Further below is an image of a case (the case STL file is in the bom folder).
+This Pro Micro device (Leanardo compatible) is a great one to use.  Further below is an image of a case (the case STL file is in the bom folder, found a use for those Mac Stickers!).
 
 ![Close up](https://user-images.githubusercontent.com/25204173/93367734-e7cc8580-f81a-11ea-8194-17ef17955601.JPG)
 
