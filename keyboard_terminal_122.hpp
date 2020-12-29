@@ -134,14 +134,14 @@ typedef enum ps2kbStatesE {
 , {{0x5A,0}, {0,Return}} /* Field Exit */ \
 , {{0x5B,0}, {0,BackSlash_Pipe}} \
 , {{0x5E,0}, {0,F12}} \
-, {{0x60,0}, {0,DownArrow}} \
+, {{0x60,0}, {0,Home}} /*swapped with 0x62*/ \ 
 , {{0x61,0}, {0,LeftArrow}} \
-, {{0x62,0}, {0,Home}} \
+, {{0x62,0}, {0,DownArrow}} /*swapped with 0x60*/ \ 
 , {{0x63,0}, {0,UpArrow}} \
 , {{0x65,0}, {0,Paste}} /*Insert*/ \
-, {{0x66,term122_shiftL}, {0,Delete_Backspace}} \
-, {{0x66,term122_shiftLck}, {0,Delete_Backspace}} \
-, {{0x66,term122_shiftR}, {0,Delete_Backspace}} \
+, {{0x66,(int)shiftL}, {0,Delete_Backspace}} \
+, {{0x66,(int)shiftLck}, {0,Delete_Backspace}} \
+, {{0x66,(int)shiftR}, {0,Delete_Backspace}} \
 , {{0x66,0}, {0,Delete_Backspace}} \
 , {{0x67,0}, {leftShift, Tab }} \
 , {{0x69,0}, {0,KP_1_End}} \
@@ -156,7 +156,13 @@ typedef enum ps2kbStatesE {
 , {{0x74,0}, {0,KP_6_Right}} \
 , {{0x75,0}, {0,KP_8_Up}} \
 , {{0x76,0}, {0,BraceOpenSq_Curl}} \
-, {{0x77,0}, {0,BraceCloseSq_Curl}} \
+, {{0x76,(int)shiftL}, {0,BraceCloseSq_Curl}} \
+, {{0x76,(int)shiftR}, {0,BraceCloseSq_Curl}} \
+, {{0x76,(int)shiftLck}, {0,BraceCloseSq_Curl}} \
+, {{0x77,0}, {0,Comma_Less}} \
+, {{0x77,(int)shiftL}, {leftShift,Acent_Tilde}} \
+, {{0x77,(int)shiftR}, {rightShift,Acent_Tilde}} \
+, {{0x77,(int)shiftLck}, {leftShift,Acent_Tilde}} \
 , {{0x79,0}, {0,KP_Enter}} \
 , {{0x7A,0}, {0,KP_3_PgDwn}} \
 , {{0x7B,0}, {0,KP_Plus}} \
